@@ -16,7 +16,7 @@ To use ProArgs in your project, simply include the `proargs.h` header file in yo
 #include "proargs.h"
 ```
 
-## Example
+## Examples
 
 ```c
 #include <stdio.h>
@@ -30,6 +30,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    // Check for the '--verbose' flag
     if (pa_arg_check(argv[1], "verbose", PA_LONG_ARG)) {
         verbose_flag = 1;
         printf("Verbose mode enabled.\n");
@@ -40,6 +41,35 @@ int main(int argc, char *argv[]) {
 ```
 
 In this example, the program checks if the command-line argument is `--verbose`, indicating that verbose mode should be enabled.
+
+```c
+#include <stdio.h>
+#include "proargs.h"
+
+int main(int argc, char *argv[])
+{
+    if (argc < 3) {
+        printf("Usage: %s [-v]\n", argv[0]);
+        return 1;
+    }
+
+    int value = 0;
+    int verbose = 0;
+    for (int i = 0; i < argc; ++i) {
+        if (pa_arg_check(argv[i], "value", PA_LONG_SHORT_ARG)) {
+            value = atoi(pa_arg_val(argv, i));
+            printf("value = %s\n", value);
+        }
+        if (pa_arg_check(argv[i], "verbose", PA_LONG_SHORT_ARG)) {
+            verbose = 1;
+        }
+    }
+
+    return 0;
+}
+```
+
+In this case a loop is used together with the 'pa_arg_val' macro to get the '--value' argument value, which should be the next argument, and also get a verbose flag argument.
 
 ## License
 
