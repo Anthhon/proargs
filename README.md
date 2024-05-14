@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
     int value = 0;
     int verbose = 0;
     for (int i = 0; i < argc; ++i) {
-        if (pa_arg_check(argv[i], "value", PA_LONG_SHORT_ARG)) {
+        if (pa_arg_check(argv[i], "value", PA_LONG_ARG)) {
             value = atoi(pa_arg_val(argv, i));
             printf("value = %s\n", value);
         }
